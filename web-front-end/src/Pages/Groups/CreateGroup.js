@@ -1,4 +1,5 @@
 import React from 'react'
+import "./CreateGroup.css";
 import {Link} from "react-router-dom";
 export default function CreateGroup() {
   return (
