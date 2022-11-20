@@ -2,12 +2,12 @@ import React, {useState} from 'react'
 import { createGroupApi } from '../../Api/Groups';
 import "./CreateGroup.css";
 
-export default function CreateGroup() {
+export default function CreateGroup(props) {
   const [gname, setGName] = useState("");
   const [serverID, setServerID] = useState("");
   
   const createGroup = async () => {
-    await createGroupApi(gname, serverID)
+    await createGroupApi(props.user.email, gname, serverID)
   }
 
   return (
