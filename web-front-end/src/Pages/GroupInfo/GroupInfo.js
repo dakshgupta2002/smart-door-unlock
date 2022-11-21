@@ -22,10 +22,10 @@ export default function GroupInfo(props) {
   const ShareKey = () => {
     return <>
       <button title="Copy to clipboard" class="badge rounded-pill btn btn-success" onClick={() => {
-        navigator.clipboard.writeText(group.key);
+        navigator.clipboard.writeText(group?.key);
         toast.success("Group key was copied to clipboard");
       }}>
-        {group.key} &nbsp;
+        {group?.key} &nbsp;
         <img src={Clipboard} alt="clip" />
       </button>
       <h6>Share this key with others to invite them to this group</h6>
@@ -35,7 +35,11 @@ export default function GroupInfo(props) {
   return (
     <div>
       <Header />
-      <ShareKey/>
+
+      <h1 className="mb-3">{group?.name}</h1>
+      <h4 className="mb-3">Status: {group?.status === true ? "Open" : "Closed"} | Freezed: {group?.freeze}</h4>
+      
+      <ShareKey />
       {/* Controls */}
       {/* History */}
 
