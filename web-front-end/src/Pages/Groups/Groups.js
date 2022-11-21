@@ -4,11 +4,11 @@ import Header from '../../Components/Header';
 import { fetchMyGroupsApi } from '../../Api/Groups'
 import { joinGroupApi, createGroupApi } from "../../Api/Groups";
 
-function Groups() {
+function Groups(props) {
   const [myGroups, setMyGroups] = useState([])
   useEffect(() => {
     const getGroups = async () => {
-      const res = await fetchMyGroupsApi();
+      const res = await fetchMyGroupsApi(props.user.email);
       setMyGroups(res);
     }
     getGroups();

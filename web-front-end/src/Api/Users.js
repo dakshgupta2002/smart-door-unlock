@@ -9,10 +9,10 @@ export const registerApi = async (email, password, confirmPassword, firstName, l
     return;
   }
   createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Save additional details in a doc of 'user' collection
-      setDoc(doc(db, 'users', email), {
-        firstName, lastName, phone, groups: []
+      await setDoc(doc(db, 'users', email), {
+        firstName, lastName, phone, email, groups: []
       })
       window.location.href="/";
     })
