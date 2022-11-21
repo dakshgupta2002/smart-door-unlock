@@ -12,7 +12,7 @@ export const registerApi = async (email, password, confirmPassword, firstName, l
     .then((userCredential) => {
       // Save additional details in a doc of 'user' collection
       setDoc(doc(db, 'users', email), {
-        firstName, lastName, phone
+        firstName, lastName, phone, groups: []
       })
       window.location.href="/";
     })
