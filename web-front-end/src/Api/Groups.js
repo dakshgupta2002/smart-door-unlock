@@ -1,20 +1,76 @@
 import { db } from "../firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
+import { v4 as uuidv4 } from 'uuid';
 
-// Create group
-export const createGroupApi = async () => {
-    await setDoc( doc(db, 'groups', 'one'), {
-        admin: '123',
+export const createGroupApi = async (email, gname, serverID) => { //otp verification
+  if (!serverID) {
+    toast.error("Server ID failed to be provided")
+    return;
+  }
+  const serverSnap = await getDoc(doc(db, "servers", serverID));
+  if (serverSnap.exists()) { //verify if this server exists
+    if (serverSnap.data().available === true) {
+      // this server will not create a new group
+      await setDoc(doc(db, "servers", serverID), { available: false }, { merge: true });
+      const key = uuidv4(); //generate the secret key for the group
+      
+      await setDoc(doc(db, "groups", serverID), { //create a new group using this server
+        name: gname,
+        admin: email,
         freeze: 'false',
-        server: '123.456.789'
-    })
+        status: 'false',
+        history: [],
+        key: key
+      })
+      // add the grp id to the user doc 
+      const userRef = await getDoc(doc(db, "users", email));
+      const updatedGroups = userRef.data().groups;
+      updatedGroups.push(serverID);
+      await setDoc(doc(db, "users", email), {groups: updatedGroups}, {merge: true});
+      // display the changes to the user
+      toast.success("Group has been created");
+      window.location.href = `/groups/${serverID}`
+    } else {
+      toast.error("The server is used by someone else.")
+    }
+  }
+  else {
+    toast.error("Server id is invalid")
+  }
 }
 // Join group
-export const joinGroupApi = () => {
-    
+export const joinGroupApi = async (email, serverID, key) => {
+  const userRef = await getDoc(doc(db, "users", email));
+  if (userRef.data().groups.includes(serverID)){
+    toast.info("You are already in this group")
+    window.location.href = `/groups/${serverID}`
+    return;
+  }
+  // check if the key exists
+  if (!key || !serverID) {
+    toast.error("Key failed to be provided")
+    return;
+  }
+  const groupSnap = await getDoc(db, "groups", serverID);
+  if (groupSnap.exists()) { //verify if they server id matches
+    if (groupSnap.data().key === key) {
+      //join the group, add the user to the group
+      const updatedGroups = userRef.data().groups;
+      updatedGroups.push(serverID);
+      await setDoc(doc(db, "users", email), {groups: updatedGroups}, {merge: true});
+    }else{
+      toast.error("The key is invalid")
+    }
+  }else toast.error("The credentials provided are wrong")
 }
 
 // My Groups
-export const fetchMyGroupsApi = async () => {
-    
+export const fetchMyGroupsApi = async (email) => {
+  const userRef = await getDoc(doc(db, "users", email));
+  const groupIDs = userRef.data().groups;
+  groupIDs.map(async (groupID) => {
+    const newGroup = await getDoc(doc(db, "groups", groupID));
+    if (newGroup.exists()) console.log(newGroup.data()); 
+  })
 }
