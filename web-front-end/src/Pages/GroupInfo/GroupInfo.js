@@ -37,7 +37,7 @@ export default function GroupInfo(props) {
       <Header />
       <ShareKey/>
       {/* Controls */}
-      
+      {/* History */}
 
     </div>
   )
