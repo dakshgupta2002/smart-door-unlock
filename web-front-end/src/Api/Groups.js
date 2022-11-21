@@ -91,3 +91,21 @@ export const fetchMyGroupsApi = async (email) => {
   }
   return refs;
 }
+
+export const fetchGroupApi = async (email, groupId) => {
+  //check if he is authorized
+  const userRef = await getDoc(doc(db, "users", email));
+  if (!userRef.data().groups.includes(groupId)) {
+    toast.error("You are not a part of this group")
+    window.location.href = `/groups`
+    return;
+  }
+  // check if the group exists
+  const groupRef = await getDoc(doc(db, "groups", groupId));
+  if (!groupRef.exists()) {
+    toast.error("This group does not exist");
+    window.location.href = `/groups`
+    return;
+  }
+  return groupRef.data();
+}
