@@ -66,6 +66,11 @@ export const joinGroupApi = async (email, serverID, key) => {
 }
 
 // My Groups
-export const fetchMyGroupsApi = async () => {
-
+export const fetchMyGroupsApi = async (email) => {
+  const userRef = await getDoc(doc(db, "users", email));
+  const groupIDs = userRef.data().groups;
+  groupIDs.map(async (groupID) => {
+    const newGroup = await getDoc(doc(db, "groups", groupID));
+    if (newGroup.exists()) console.log(newGroup.data()); 
+  })
 }
