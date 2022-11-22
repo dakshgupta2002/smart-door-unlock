@@ -5,6 +5,7 @@ import Register from './Pages/Register/Register';
 import Login from './Pages/Login/Login';
 import Home from './Pages/Home/Home'
 import Groups from './Pages/Groups/Groups';
+import GroupInfo from './Pages/GroupInfo/GroupInfo';
 import Profile from './Pages/Profile/Profile';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from './ProtectedRoute'
@@ -29,8 +30,9 @@ function App() {
       <Routes>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-        <Route path="/" element={<ProtectedRoute user={user}> <Home user={user}/> </ProtectedRoute>} />
+        <Route path="/" element={<Home user={user}/>} />
         <Route path="/groups" element={<ProtectedRoute user={user}> <Groups user={user}/> </ProtectedRoute>} />
+        <Route path="/groups/:groupId" element={<ProtectedRoute user={user}> <GroupInfo user={user}/> </ProtectedRoute>} />
         <Route path="/createGroup" element={<ProtectedRoute user={user}> <CreateGroup user={user}/> </ProtectedRoute>} />
         <Route path="/joinGroup" element={<ProtectedRoute user={user}> <JoinGroup user={user}/> </ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute user={user}> <Profile user={user}/> </ProtectedRoute>} />
