@@ -1,0 +1,56 @@
+#Body {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    160deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(121, 9, 113, 1) 50%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  min-height: 100vh;
+  text-align: center;
+}
+
+#appCard {
+  display: inline-block;
+  margin-top: 15vh;
+  width: 350px;
+  background-color: aliceblue;
+}
+
+@media screen and (min-height: 660px) {
+  #appCard {
+    display: inline-block;
+    margin-top: 25vh;
+    width: 350px;
+    background-color: aliceblue;
+  }
+}
+
+@media screen and (min-height: 1000px) {
+  #appCard {
+    display: inline-block;
+    margin-top: 35vh;
+    width: 350px;
+    background-color: aliceblue;
+  }
+}
+
+#title, #subTitle {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#ownerName, #phone, #address {
+  margin: 30px 0px;
+  text-align: start;
+}
+
+#login-btn {
+  padding: 5px;
+  margin: 25px 0px;
+  font-size: 17px;
+}
+#signUp {
+  margin-top: 20px;
+  text-align: center;
+}
