@@ -12,6 +12,7 @@ import ProtectedRoute from './ProtectedRoute'
 import CreateGroup from './Pages/Groups/CreateGroup';
 import JoinGroup from './Pages/Groups/JoinGroup';
 import { auth } from './firebase';
+import BuyServer from './Pages/BuyServer/BuyServer';
 
 function App() {
   const [user, setUser] = useState(false);
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route path="/" element={<Home user={user}/>} />
+        <Route path="/buy" element={<BuyServer user={user}/>} />
         <Route path="/groups" element={<ProtectedRoute user={user}> <Groups user={user}/> </ProtectedRoute>} />
         <Route path="/groups/:groupId" element={<ProtectedRoute user={user}> <GroupInfo user={user}/> </ProtectedRoute>} />
         <Route path="/createGroup" element={<ProtectedRoute user={user}> <CreateGroup user={user}/> </ProtectedRoute>} />
