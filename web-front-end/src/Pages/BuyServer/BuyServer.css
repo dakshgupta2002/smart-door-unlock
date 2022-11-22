@@ -12,8 +12,8 @@
 
 #appCard {
   display: inline-block;
-  margin-top: 15vh;
-  width: 350px;
+  margin: auto;
+  width: 450px;
   background-color: aliceblue;
 }
 
@@ -41,7 +41,7 @@
 }
 
 #ownerName, #phone, #address {
-  margin: 30px 0px;
+  margin: 15px 0px;
   text-align: start;
 }
 

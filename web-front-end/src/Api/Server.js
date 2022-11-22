@@ -2,10 +2,11 @@ import { addDoc, collection } from "firebase/firestore"
 import { toast } from "react-toastify";
 import { db } from "../firebase"
 
-export const buyServerApi = async (name, phone, address) => {
+export const buyServerApi = async (name, email, phone, address) => {
     const newServerRef = await addDoc(collection(db, "servers"), {
         available: true,
         location: address,
+        email: email,
         owner: name,
         phone: phone,
         ipadd: '0.0.0.0/0'
