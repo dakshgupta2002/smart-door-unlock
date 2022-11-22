@@ -25,21 +25,22 @@ export default function Header() {
             <button onClick={() => navigate("/groups")} style={{backgroundColor:"transparent", color:"aliceblue", border:"none"}}> View Groups </button>
             <button onClick={() => navigate("/createGroup")} style={{backgroundColor:"transparent", color:"aliceblue", border:"none"}}> Create Group </button>
             <button onClick={() => navigate("/joinGroup")} style={{backgroundColor:"transparent", color:"aliceblue", border:"none"}}> Join Group </button>
-            <button onClick={logoutApi} style={{backgroundColor:"transparent", color:"aliceblue", border:"none"}}> Logout </button>
-            <p>{user?.email}</p>
+            {/* <p>{user?.email}</p> */}
           </Nav>
-          {/* <i class="fa-solid fa-user"></i>
-          <NavDropdown title="" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
+          <div style={{textAlign:"center"}}>
+          <i class="fa-solid fa-user"></i>
+          <NavDropdown title="" id="basic-nav-dropdown" align="end" style={{display:"inline-block"}}>
+            <NavDropdown.Item href="#action/3.1">View Profile</NavDropdown.Item>
+            {/* <NavDropdown.Item href="#action/3.2">
+              Another action
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/">
+              <button onClick={logoutApi} style={{backgroundColor:"transparent", border:"none"}}> Logout </button>
+            </NavDropdown.Item>
+          </NavDropdown>
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
