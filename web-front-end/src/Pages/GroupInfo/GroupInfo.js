@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 export default function GroupInfo(props) {
   const { groupId } = useParams();
   const [group, setGroup] = useState();
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     const fetchGroupInfo = async () => {
@@ -18,6 +19,23 @@ export default function GroupInfo(props) {
     fetchGroupInfo();
 
   }, []);
+
+  useEffect( () => {
+    //fetch the history of the group
+
+  }, [group]);
+
+  const openDoor = async () => {
+    //flask api call to arduino
+    
+    // add the command to the history
+    
+    // change the status of the group
+
+
+  }
+  const closeDoor = async () => {
+  }
 
   const ShareKey = () => {
     return <>
@@ -41,7 +59,11 @@ export default function GroupInfo(props) {
       
       <ShareKey />
       {/* Controls */}
+      <button className='btn btn-success' onClick={openDoor}>Open the door</button>
+      <button className='btn btn-danger' onClick={closeDoor}>Close the door</button>
+      
       {/* History */}
+
 
     </div>
   )
