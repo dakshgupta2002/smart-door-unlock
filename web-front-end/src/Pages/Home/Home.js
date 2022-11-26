@@ -20,8 +20,6 @@ export default function Home(props) {
       <div>
         About the technologies used
       </div>
-
-
     </div>
   )
 }
