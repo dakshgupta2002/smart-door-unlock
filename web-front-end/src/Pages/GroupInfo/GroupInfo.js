@@ -47,6 +47,16 @@ export default function GroupInfo(props) {
   };
 
   const handleDoorStatus = async () => {
+    if (group?.freeze === true){
+      toast.warning("This operation is blocked by admin");
+      return;
+    }
+    // run the arduino code through flask 
+    // toggle the status of the door on the db
+    await setDoc(doc(db, "groups", groupId), {status: !group?.status}, {merge: true});
+    // update the status of the door on the UI
+    setGroup({...group, status: !group?.status});
+
   }
 
   const handleDoorFreeze = async () => {
@@ -70,7 +80,7 @@ export default function GroupInfo(props) {
       </div>
 
       <h1 className="mb-3" style={{ textAlign: "center", marginTop: "40px", color: "white" }}>{group?.name}</h1>
-      
+
       <div style={divStyle}>
         <button
           className={"power_button " + (group?.status === true ? "is-active" : "")}
