@@ -12,8 +12,8 @@ export const createGroupApi = async (email, gname, serverID) => {
     await setDoc(doc(db, "groups", serverID), { //create a new group using this server
       name: gname,
       admin: email,
-      freeze: 'false',
-      status: 'false',
+      freeze: false,
+      status: false,
       history: [],
       key: key
     })
