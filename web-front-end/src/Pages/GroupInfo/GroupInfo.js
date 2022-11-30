@@ -51,10 +51,9 @@ export default function GroupInfo(props) {
       toast.warning("This operation is blocked by admin");
       return;
     }
-    // run the arduino code through flask 
-    // toggle the status of the door on the db
+    const data = group?.status === true? 'L': 'H'
+    const res = await fetch(`https://dfe1-2405-201-5001-b9da-3d4b-2034-1edc-3d0e.in.ngrok.io/${data}`);
     await setDoc(doc(db, "groups", groupId), {status: !group?.status}, {merge: true});
-    // update the status of the door on the UI
     setGroup({...group, status: !group?.status});
 
   }

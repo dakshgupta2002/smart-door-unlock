@@ -1,17 +1,38 @@
-from flask import Flask
-from flask_cors import CORS
-from routers import door
+import serial
+import time
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app = Flask(__name__)
-CORS(app)
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:3000",
+    "*"
+]
 
-@app.route('/unlock')
-def unlock():
-    return door.unlock()
+app = FastAPI()
 
-@app.route('/lock')
-def lock():
-    return door.lock()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.get("/")
+def index():
+    return {
+        "hello": "Welcome to the fastapi server",
+        "Thank you": "for using this service"
+    }
+    
+
+@app.get("/{data}")
+async def index(data):
+    arduino = serial.Serial(port='COM3', baudrate=9600, timeout=.1)
+    arduino.write(bytes(data, 'utf-8'))
+    time.sleep(0.05)
+    data = arduino.readline()
+    return data
